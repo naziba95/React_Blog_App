@@ -1,0 +1,168 @@
+
+const [name, setName] = useState('Mario');
+  const [age, setAge] = useState(25);
+  // let name = 'Mario';
+const handleClick = () => {
+     setName('Donenaziba');
+    setAge(27);  
+   } 
+  // const handleClickAgain = (name, e) => {
+  //   console.log('Hello ' + name, e.type)
+
+  // }
+
+    <h2>Home Page</h2>
+      <p> {name} is {age} years old</p>
+      
+      <button onClick={handleClick}>Click me</button>
+ 
+      {/* <button onClick= {(e) => 
+      
+      handleClickAgain("Mario", e)
+      
+      }>Click me Again</button>   */}
+
+
+      //use map to dynamically output blog content
+      import { useState } from "react";
+
+const Home = () => {
+
+ const [blogs, setBlogs] = useState([
+
+  {title: 'My new website', body:'Lorem ipsum', author: 'mario', id:1},
+  {title: 'Welcome party!', body:'Lorem ipsum', author: 'yoshi', id:2},
+  {title: 'Web dev top tips', body:'Lorem ipsum', author: 'mario', id:3}
+ 
+ ]);
+
+ useeffect with dependency
+
+ useEffect(() => {
+
+    console.log("Use effect ran")
+    console.log(name)
+
+  }, [name]) ; 
+
+  const handleDelete = (id) => {
+
+    const newBlogs = blogs.filter(blog => blog.id !== id) // filter and output only blog posts with specified ID
+    setBlogs(newBlogs)  // use the useState hook to return a new blog when the button is clicked
+
+     // const displayBlog = (id) => {
+  //   const blogposts = blogs.filter(blog => blog.id === id)
+    
+  // }
+
+  {/* <Bloglist blogs={blogs.filter((blog) => blog.author === 'mario' )} title = "Mario's Blogs"/> */}
+
+  <button onClick={() => handleDelete(blog.id)}>delete blog</button>
+        {/* <button onClick={() => displayBlog(blog.id)}>Show Contents</button> */}
+
+
+//  const [name, setName] =  useState('Mario');
+  
+  // const handleDelete = (id) => {
+
+  //   const newBlogs = blogs.filter(blog => blog.id !== id) // filter and output only blog posts with specified ID
+  //   setBlogs(newBlogs)  // use the useState hook to return a new blog when the button is clicked
+  // }
+
+  // const displayBlog = (id) => {
+  //   const blogposts = blogs.filter(blog => blog.id === id)
+    
+  // }
+
+  {/* <Bloglist blogs={blogs.filter((blog) => blog.author === 'mario' )} title = "Mario's Blogs"/> */}
+
+
+// USING HOOKS
+
+  import { useState, useEffect } from "react";
+import Bloglist from "./Bloglist";
+
+const Home = () => {
+
+  
+    const [blogs, setBlogs] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+   const [error,setError] = useState(null);
+  
+   useEffect(() => {
+  
+    fetch('http://localhost:8000/blogs')
+        .then(res => {
+          console.log(res);
+          if (!res.ok) {
+              throw Error('Could not fetch the data for that resource')
+          }
+  
+          return res.json();
+     })
+  
+     .then((data) => {
+        // console.log(data) 
+      setBlogs(data)
+        setIsPending(false);
+        setError(null);
+  
+  
+     })
+  
+     .catch(err => {
+        setIsPending(false);
+        setError(err.message);
+  
+     })
+    
+  
+  }, []) ; 
+  
+  
+
+ 
+  
+  return ( 
+
+    <div className="home">
+      {error && <div>{error}</div>}
+      {isPending && <div>Loading...</div>} 
+      {blogs && <Bloglist blogs={blogs} title = "All Blogs"/>} 
+      
+      
+    
+    </div>
+
+  );
+}
+
+export default Home;
+  
+  
+  
+  
+  return ( 
+
+    <div className="home">
+
+      {blogs.map((blog) => 
+      
+      <div className="blog-preview" key={blog.id}>
+
+        <h2>{blog.title}</h2>
+        <p>Written By: {blog.author}</p>
+
+      </div>
+      
+      )}
+      
+    
+    </div>
+
+  );
+}
+ 
+export default Home;
+    
+    
